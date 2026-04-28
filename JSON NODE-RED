@@ -1,0 +1,4051 @@
+// JSON RED:[
+    {
+        "id": "c8912e18e9955e95",
+        "type": "tab",
+        "label": "DISTRIBUCION",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9f83b74564c2e3e1",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "431dfc1e71173a45",
+        "type": "modbus-read",
+        "z": "c8912e18e9955e95",
+        "name": "V_Media_A",
+        "topic": "V_red",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3019",
+        "quantity": "2",
+        "rate": "4000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "1a2ea36eaf0a5d35",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "204c804b63b41e51"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "204c804b63b41e51",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 1",
+        "func": "\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\n// Redondear \nmsg.payload = {\n    Vmedia_A: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 60,
+        "wires": [
+            [
+                "9f83b74564c2e3e1",
+                "a5cb10cae1db1988"
+            ]
+        ]
+    },
+    {
+        "id": "5b33fa65b1e408c9",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 11",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "c1324e36421e311d",
+        "type": "modbus-read",
+        "z": "c8912e18e9955e95",
+        "name": "Current_medio_A",
+        "topic": "Current_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "2999",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "1a2ea36eaf0a5d35",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "b4c7bc1101dc0b19"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d334024b93405141",
+        "type": "modbus-read",
+        "z": "c8912e18e9955e95",
+        "name": "Freq_ALIMENTANCION",
+        "topic": "Freq_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3109",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "1a2ea36eaf0a5d35",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "f01b09394a8584f6"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4bb8bd7fac1846d4",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 12",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "220fd28365aa291b",
+        "type": "modbus-read",
+        "z": "c8912e18e9955e95",
+        "name": "PowerS_ALIMENTANCION",
+        "topic": "PowerS_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3075",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "1a2ea36eaf0a5d35",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 160,
+        "y": 440,
+        "wires": [
+            [
+                "35fa0959a9edecb9",
+                "f9442b0475701714"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "818c84feb0e95ded",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 13",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "d86cb0850327523b",
+        "type": "modbus-read",
+        "z": "c8912e18e9955e95",
+        "name": "Energy_ALIMENTANCION",
+        "topic": "Energy_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "2703",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "1a2ea36eaf0a5d35",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "215195218dd39ada"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "8e34e0f09e03e8e3",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b4c7bc1101dc0b19",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 5",
+        "func": "let regs = msg.payload; \n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    Current_medio_A: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 120,
+        "wires": [
+            [
+                "5b33fa65b1e408c9",
+                "a5cb10cae1db1988"
+            ]
+        ]
+    },
+    {
+        "id": "f01b09394a8584f6",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 9",
+        "func": "\nlet regs = msg.payload;\n\nlet buf = Buffer.alloc(4);\n\n\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet frecuencia = buf.readFloatBE(0);\n\n\nif (frecuencia < 40 || frecuencia > 70) {\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    frecuencia = buf.readFloatBE(0);\n}\n\nmsg.payload = { frecuencia_Hz: frecuencia };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "4bb8bd7fac1846d4",
+                "a5cb10cae1db1988"
+            ]
+        ]
+    },
+    {
+        "id": "215195218dd39ada",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 10",
+        "func": "\nlet regs = msg.payload;\n\nif (regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros para FLOAT32\");\n    return null;\n}\n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet energiaWh = buf.readFloatBE(0);\n\n\nif (energiaWh < 0 || energiaWh > 1e7) {\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    energiaWh = buf.readFloatBE(0);\n}\n\n\nmsg.payload = { energia_kWh: energiaWh };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "8e34e0f09e03e8e3",
+                "a5cb10cae1db1988"
+            ]
+        ]
+    },
+    {
+        "id": "b14f2fdc2862bfdb",
+        "type": "modbus-read",
+        "z": "c8912e18e9955e95",
+        "name": "PowerP_ALIMENTANCION",
+        "topic": "PowerP_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3059",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "1a2ea36eaf0a5d35",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 160,
+        "y": 520,
+        "wires": [
+            [
+                "72b8c2d7e24033fa",
+                "634b484751ccc21d"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "9471cd15e90970de",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 15",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "79453d4d6b2a25ec",
+        "type": "modbus-read",
+        "z": "c8912e18e9955e95",
+        "name": "PowerQ_ALIMENTANCION",
+        "topic": "PowerQ_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3067",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "1a2ea36eaf0a5d35",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "9805e135b59e8fcf"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "9805e135b59e8fcf",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 14",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction decodeFloat(regs) {\n    let buf = Buffer.alloc(4);\n    let results = [];\n\n\n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n\n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = decodeFloat(regs);\n\n\nlet potencia = valores.find(v => v > -1000 && v < 10000);\n\nmsg.payload = {\n    potencia_kVAR: potencia,\n\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "e79872362d9d3846",
+                "a5cb10cae1db1988"
+            ]
+        ]
+    },
+    {
+        "id": "e79872362d9d3846",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 16",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "35fa0959a9edecb9",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 15",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction tryAll(regs) {\n    let results = [];\n\n    let buf = Buffer.alloc(4);\n\n\n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n\n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = tryAll(regs);\n\n\nlet potencia = valores.find(v => v > 0 && v < 10000);\n\nmsg.payload = {\n    kVA: potencia,\n   \n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 380,
+        "wires": [
+            [
+                "818c84feb0e95ded",
+                "a5cb10cae1db1988"
+            ]
+        ]
+    },
+    {
+        "id": "72b8c2d7e24033fa",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 16",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction decodeFloat(regs) {\n    let buf = Buffer.alloc(4);\n    let results = [];\n\n\n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n  \n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n\n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = decodeFloat(regs);\n\n\nlet potencia = valores.find(v => v > -1000 && v < 10000);\n\nmsg.payload = {\n    potencia_kW: potencia,\n    \n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 440,
+        "wires": [
+            [
+                "9471cd15e90970de",
+                "a5cb10cae1db1988"
+            ]
+        ]
+    },
+    {
+        "id": "634b484751ccc21d",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 18",
+        "func": "msg.topic = \"P\";         \nmsg.payload = msg.payload[0];  \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 580,
+        "wires": [
+            [
+                "7a36b7144ccb173a"
+            ]
+        ]
+    },
+    {
+        "id": "f9442b0475701714",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 19",
+        "func": "msg.topic = \"S\";\nmsg.payload = msg.payload[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 520,
+        "wires": [
+            [
+                "7a36b7144ccb173a"
+            ]
+        ]
+    },
+    {
+        "id": "7a36b7144ccb173a",
+        "type": "join",
+        "z": "c8912e18e9955e95",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "5",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 610,
+        "y": 540,
+        "wires": [
+            [
+                "413f589ab175e073"
+            ]
+        ]
+    },
+    {
+        "id": "413f589ab175e073",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 20",
+        "func": "let P = msg.payload.P;\nlet S = msg.payload.S;\n\n\nif (P === undefined || S === undefined) {\n    node.warn(\"Faltan P o S\");\n    return null;\n}\n\nlet pf = 0;\n\nif (S !== 0) {\n    pf = P / S;\n}\n\n\nif (pf > 1) pf = 1;\nif (pf < -1) pf = -1;\n\n\nmsg.payload = {\n    powerFactor: pf,\n    activePower: P,\n    apparentPower: S\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 540,
+        "wires": [
+            [
+                "6f26b8a095377b88",
+                "a5cb10cae1db1988"
+            ]
+        ]
+    },
+    {
+        "id": "6f26b8a095377b88",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "a5cb10cae1db1988",
+        "type": "join",
+        "z": "c8912e18e9955e95",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "2",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1070,
+        "y": 100,
+        "wires": [
+            [
+                "4906f33833acc9e4"
+            ]
+        ]
+    },
+    {
+        "id": "4906f33833acc9e4",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 52",
+        "func": "\nlet data = {};\n\n\nfor (let key in msg.payload) {\n    if (typeof msg.payload[key] === \"object\" && msg.payload[key] !== null) {\n        Object.assign(data, msg.payload[key]);\n    } else {\n        data[key] = msg.payload[key];\n    }\n}\n\n\nmsg.measurement = \"datos_pickdata\";\n\n\nmsg.payload = data;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1290,
+        "y": 100,
+        "wires": [
+            [
+                "9cbfa94307910447",
+                "fafdd8c3e871eef1"
+            ]
+        ]
+    },
+    {
+        "id": "9cbfa94307910447",
+        "type": "influxdb out",
+        "z": "c8912e18e9955e95",
+        "influxdb": "73176a02fa65841f",
+        "name": "test",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "tfg",
+        "bucket": "tfg",
+        "x": 1430,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "fafdd8c3e871eef1",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug influx",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1450,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "181121f8377a4ff8",
+        "type": "modbus-read",
+        "z": "c8912e18e9955e95",
+        "name": "V_Media_C",
+        "topic": "V_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3023",
+        "quantity": "2",
+        "rate": "4000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "1a2ea36eaf0a5d35",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 150,
+        "y": 740,
+        "wires": [
+            [
+                "2a84aa9bebd5a08e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c025c189f546552e",
+        "type": "modbus-read",
+        "z": "c8912e18e9955e95",
+        "name": "V_Media_B",
+        "topic": "V_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3021",
+        "quantity": "2",
+        "rate": "4000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "1a2ea36eaf0a5d35",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 150,
+        "y": 660,
+        "wires": [
+            [
+                "b6c5f65ac0da21f9"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b6c5f65ac0da21f9",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 53",
+        "func": "\n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\n\nmsg.payload = {\n    Vmedia_B: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 680,
+        "wires": [
+            [
+                "a671f2fd65070ea1",
+                "a5cb10cae1db1988"
+            ]
+        ]
+    },
+    {
+        "id": "a671f2fd65070ea1",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 43",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "2a84aa9bebd5a08e",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 54",
+        "func": "\n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\n \nmsg.payload = {\n    Vmedia_C: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 740,
+        "wires": [
+            [
+                "a5cb10cae1db1988",
+                "11398c264a9f0c2f"
+            ]
+        ]
+    },
+    {
+        "id": "11398c264a9f0c2f",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 44",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "c8e2cadec0e4554d",
+        "type": "modbus-read",
+        "z": "c8912e18e9955e95",
+        "name": "Current_medio_B",
+        "topic": "Current_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3001",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "1a2ea36eaf0a5d35",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 160,
+        "y": 820,
+        "wires": [
+            [
+                "e593d0e4a700d92e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f6f0b07dfc465cb7",
+        "type": "modbus-read",
+        "z": "c8912e18e9955e95",
+        "name": "Current_medio_C",
+        "topic": "Current_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3003",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "1a2ea36eaf0a5d35",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 170,
+        "y": 880,
+        "wires": [
+            [
+                "4f46cb58ae086684"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e593d0e4a700d92e",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 55",
+        "func": "let regs = msg.payload; \n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    Current_medio_B: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 820,
+        "wires": [
+            [
+                "e6552a555037dc65",
+                "a5cb10cae1db1988"
+            ]
+        ]
+    },
+    {
+        "id": "4f46cb58ae086684",
+        "type": "function",
+        "z": "c8912e18e9955e95",
+        "name": "function 56",
+        "func": "let regs = msg.payload; \n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    Current_medio_C: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 880,
+        "wires": [
+            [
+                "5a15d587cd04556a",
+                "a5cb10cae1db1988"
+            ]
+        ]
+    },
+    {
+        "id": "e6552a555037dc65",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 45",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "5a15d587cd04556a",
+        "type": "debug",
+        "z": "c8912e18e9955e95",
+        "name": "debug 46",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "1a2ea36eaf0a5d35",
+        "type": "modbus-client",
+        "name": "PM5500 GENERAL",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.10.113",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true
+    },
+    {
+        "id": "73176a02fa65841f",
+        "type": "influxdb",
+        "hostname": "http://10.4.74.56:8086",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "test",
+        "usetls": false,
+        "tls": "d50d0c9f.31e858",
+        "influxdbVersion": "2.0",
+        "url": "http://10.4.74.52:8086/",
+        "timeout": "5",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "d50d0c9f.31e858",
+        "type": "tls-config",
+        "d": true,
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false
+    }
+]
+//JSON ALTERNADOR 1
+[
+    {
+        "id": "226a3b148171bbbe",
+        "type": "tab",
+        "label": "ALTERNADOR 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "427783259bea8d4a",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 18",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "1730495a7e312f45",
+        "type": "modbus-read",
+        "z": "226a3b148171bbbe",
+        "name": "V_ALT1_A",
+        "topic": "V_ALT1",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3019",
+        "quantity": "2",
+        "rate": "4000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "571e8d6997f02c37"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "571e8d6997f02c37",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 21",
+        "func": "\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\n\nmsg.payload = {\n    V_ALT1_A: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 60,
+        "wires": [
+            [
+                "427783259bea8d4a",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "782f915a9830e9cb",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 19",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "39b610460c058b8c",
+        "type": "modbus-read",
+        "z": "226a3b148171bbbe",
+        "name": "Current_ALT1_A",
+        "topic": "Current_ALT1",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "2999",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "7cf217ad2050f8fe"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f82bb4d38894ef04",
+        "type": "modbus-read",
+        "z": "226a3b148171bbbe",
+        "d": true,
+        "name": "Freq_ALT1",
+        "topic": "Freq_ALT1",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3109",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 100,
+        "y": 280,
+        "wires": [
+            [
+                "fc01b58e41a6dd49"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2ca79a1d0e57fb1a",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 20",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "d8eb834c1e198bee",
+        "type": "modbus-read",
+        "z": "226a3b148171bbbe",
+        "name": "PowerS_ALT1",
+        "topic": "PowerS_ALT1",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3075",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 110,
+        "y": 440,
+        "wires": [
+            [
+                "a1cd8c63d56b5e4c",
+                "7d2aaff4682ac2c8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "8a209d74d2e51bac",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 21",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "329de5bcd5d31791",
+        "type": "modbus-read",
+        "z": "226a3b148171bbbe",
+        "name": "Energy_ALT1",
+        "topic": "Energy_ALT1",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "2699",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "cb0c2a384c5ecae6"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4b3bc6ec635a802d",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 22",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "7cf217ad2050f8fe",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 22",
+        "func": "let regs = msg.payload; \n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    current_ALT1_A: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 120,
+        "wires": [
+            [
+                "782f915a9830e9cb",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "fc01b58e41a6dd49",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 23",
+        "func": "\nlet regs = msg.payload;\n\nlet buf = Buffer.alloc(4);\n\n\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet frecuencia = buf.readFloatBE(0);\n\n\nif (frecuencia < 40 || frecuencia > 70) {\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    frecuencia = buf.readFloatBE(0);\n}\n\nmsg.payload = { frecuencia_Hz_ALT1: frecuencia };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "2ca79a1d0e57fb1a",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "cb0c2a384c5ecae6",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 24",
+        "func": "\nlet regs = msg.payload;\n\nif (regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros para FLOAT32\");\n    return null;\n}\n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet energiaWh = buf.readFloatBE(0);\n\n\nif (energiaWh < 0 || energiaWh > 1e7) {\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    energiaWh = buf.readFloatBE(0);\n}\n\n\nmsg.payload = { energia_kWh: energiaWh };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "4b3bc6ec635a802d",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "70bb8c483afe24ad",
+        "type": "modbus-read",
+        "z": "226a3b148171bbbe",
+        "name": "PowerP_ALT1",
+        "topic": "PowerP_ALT1",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3059",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 110,
+        "y": 520,
+        "wires": [
+            [
+                "4102997211f41b15",
+                "5e3d5988848de5fb"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e0d35c4d49a8c43b",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 23",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "34675cb06c0da5f4",
+        "type": "modbus-read",
+        "z": "226a3b148171bbbe",
+        "name": "PowerQ_ALT1",
+        "topic": "PowerQ_ALT1",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3067",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 360,
+        "wires": [
+            [
+                "69ae4f367efe450a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "69ae4f367efe450a",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 25",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction decodeFloat(regs) {\n    let buf = Buffer.alloc(4);\n    let results = [];\n\n\n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n \n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n  \n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n\n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = decodeFloat(regs);\n\n\nlet potencia = valores.find(v => v > -1000 && v < 10000);\n\nmsg.payload = {\n    potencia_kVAR_ALT1: potencia,\n\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "2986d90fecd75bc2",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "2986d90fecd75bc2",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 24",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a1cd8c63d56b5e4c",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 26",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction tryAll(regs) {\n    let results = [];\n\n    let buf = Buffer.alloc(4);\n\n\n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = tryAll(regs);\n\n\nlet potencia = valores.find(v => v > 0 && v < 10000);\n\nmsg.payload = {\n    kVA_ALT1: potencia,\n   \n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 380,
+        "wires": [
+            [
+                "8a209d74d2e51bac",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "4102997211f41b15",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 27",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction decodeFloat(regs) {\n    let buf = Buffer.alloc(4);\n    let results = [];\n\n\n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n\n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = decodeFloat(regs);\n\n\nlet potencia = valores.find(v => v > -1000 && v < 10000);\n\nmsg.payload = {\n    potencia_kW_ALT1: potencia,\n    \n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 440,
+        "wires": [
+            [
+                "e0d35c4d49a8c43b",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "5e3d5988848de5fb",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 28",
+        "func": "msg.topic = \"P\";          \nmsg.payload = msg.payload[0];  \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 580,
+        "wires": [
+            [
+                "8cafb61ad0a53eaa"
+            ]
+        ]
+    },
+    {
+        "id": "7d2aaff4682ac2c8",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 29",
+        "func": "msg.topic = \"S\";\nmsg.payload = msg.payload[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 520,
+        "wires": [
+            [
+                "8cafb61ad0a53eaa"
+            ]
+        ]
+    },
+    {
+        "id": "8cafb61ad0a53eaa",
+        "type": "join",
+        "z": "226a3b148171bbbe",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "5",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 610,
+        "y": 540,
+        "wires": [
+            [
+                "00df718b048197c7"
+            ]
+        ]
+    },
+    {
+        "id": "00df718b048197c7",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 30",
+        "func": "let P = msg.payload.P;\nlet S = msg.payload.S;\n\n\nif (P === undefined || S === undefined) {\n    node.warn(\"Faltan P o S\");\n    return null;\n}\n\nlet pf = 0;\n\nif (S !== 0) {\n    pf = P / S;\n}\n\n\nif (pf > 1) pf = 1;\nif (pf < -1) pf = -1;\n\n\nmsg.payload = {\n    powerFactor_ALT1: pf,\n    activePower: P,\n    apparentPower: S\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 540,
+        "wires": [
+            [
+                "3dd4fe8f09d04b5d",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "3dd4fe8f09d04b5d",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 25",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "7533a8a90e06d6f8",
+        "type": "modbus-read",
+        "z": "226a3b148171bbbe",
+        "name": "V_ALT1_C",
+        "topic": "V_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3023",
+        "quantity": "2",
+        "rate": "4000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 760,
+        "wires": [
+            [
+                "cc1886636d94b697"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "fa05555b0c9a73fe",
+        "type": "modbus-read",
+        "z": "226a3b148171bbbe",
+        "name": "V_ALT1_B",
+        "topic": "V_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3021",
+        "quantity": "2",
+        "rate": "4000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 680,
+        "wires": [
+            [
+                "c02ae056e25fb3f5"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c02ae056e25fb3f5",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 57",
+        "func": "\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\n\nmsg.payload = {\n    V_ALT1_B: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 700,
+        "wires": [
+            [
+                "f8ed717174b24654",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "f8ed717174b24654",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 47",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "cc1886636d94b697",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 58",
+        "func": "\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\n\nmsg.payload = {\n    V_ALT1_C: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 760,
+        "wires": [
+            [
+                "019438e8ad9438a5",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "019438e8ad9438a5",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 48",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "32e8ed9ce7cfe87f",
+        "type": "modbus-read",
+        "z": "226a3b148171bbbe",
+        "name": "Current_ALT1_B",
+        "topic": "Current_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3001",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 140,
+        "y": 840,
+        "wires": [
+            [
+                "ee86f4e5c3030be1"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "10bc0cba32d0762d",
+        "type": "modbus-read",
+        "z": "226a3b148171bbbe",
+        "name": "Current_ALT1_C",
+        "topic": "Current_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3003",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 140,
+        "y": 900,
+        "wires": [
+            [
+                "1dae6b8cd3980544"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ee86f4e5c3030be1",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 59",
+        "func": "let regs = msg.payload; \n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    Current_ALT1_B: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 840,
+        "wires": [
+            [
+                "984c973466759fbd",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "1dae6b8cd3980544",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 60",
+        "func": "let regs = msg.payload; \n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    Current_ALT1_C: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 900,
+        "wires": [
+            [
+                "45ce2757cef936ca",
+                "7cc59811f134c689"
+            ]
+        ]
+    },
+    {
+        "id": "984c973466759fbd",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 49",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "45ce2757cef936ca",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug 50",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "7cc59811f134c689",
+        "type": "join",
+        "z": "226a3b148171bbbe",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "2",
+        "count": "10",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1010,
+        "y": 140,
+        "wires": [
+            [
+                "0bcf712bcabc1eac"
+            ]
+        ]
+    },
+    {
+        "id": "0bcf712bcabc1eac",
+        "type": "function",
+        "z": "226a3b148171bbbe",
+        "name": "function 61",
+        "func": "\nlet data = {};\n\n\nfor (let key in msg.payload) {\n    if (typeof msg.payload[key] === \"object\" && msg.payload[key] !== null) {\n        Object.assign(data, msg.payload[key]);\n    } else {\n        data[key] = msg.payload[key];\n    }\n}\n\n\nmsg.measurement = \"datos_pickdata_ALT1\";\n\n\nmsg.payload = data;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1190,
+        "y": 120,
+        "wires": [
+            [
+                "1c11477a35c7d32e",
+                "84d830aff2ba283a"
+            ]
+        ]
+    },
+    {
+        "id": "1c11477a35c7d32e",
+        "type": "influxdb out",
+        "z": "226a3b148171bbbe",
+        "influxdb": "73176a02fa65841f",
+        "name": "test",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "tfg",
+        "bucket": "tfg",
+        "x": 1370,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "84d830aff2ba283a",
+        "type": "debug",
+        "z": "226a3b148171bbbe",
+        "name": "debug influx",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1390,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e84436931b5409c9",
+        "type": "modbus-client",
+        "name": "PM5500_ALT1",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.10.110",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true
+    },
+    {
+        "id": "73176a02fa65841f",
+        "type": "influxdb",
+        "hostname": "http://10.4.74.56:8086",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "test",
+        "usetls": false,
+        "tls": "d50d0c9f.31e858",
+        "influxdbVersion": "2.0",
+        "url": "http://10.4.74.52:8086/",
+        "timeout": "5",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "d50d0c9f.31e858",
+        "type": "tls-config",
+        "d": true,
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false
+    }
+]
+JSON ALT 2
+[
+    {
+        "id": "47581ab978ca77f3",
+        "type": "tab",
+        "label": "ALTERNADOR 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "58ec9cc26e0ba183",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 26",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "36f5c34879fa4baf",
+        "type": "modbus-read",
+        "z": "47581ab978ca77f3",
+        "name": "V_ALT2_A",
+        "topic": "V_ALT2",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3019",
+        "quantity": "2",
+        "rate": "4000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "9273182770e18225"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "9273182770e18225",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 31",
+        "func": "\n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\nmsg.payload = {\n    V_ALT2: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 60,
+        "wires": [
+            [
+                "58ec9cc26e0ba183",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "bcf5f8a14c9bf8c5",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 27",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "242ffcf096eab81f",
+        "type": "modbus-read",
+        "z": "47581ab978ca77f3",
+        "name": "Current_ALT2",
+        "topic": "Current_ALT2_A",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "2999",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "f95de8d8c9dabf91"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "de9c0588fcc9f6bc",
+        "type": "modbus-read",
+        "z": "47581ab978ca77f3",
+        "name": "Freq_ALT2",
+        "topic": "Freq_ALT2",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3109",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 280,
+        "wires": [
+            [
+                "11035abb5d46027b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "13cb5b229d5f0fbd",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 28",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "cfd1e55df9a76fbf",
+        "type": "modbus-read",
+        "z": "47581ab978ca77f3",
+        "name": "PowerS_ALT2",
+        "topic": "PowerS_ALT2",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3075",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 130,
+        "y": 440,
+        "wires": [
+            [
+                "6a20ae75a05a9548",
+                "13a7a2e7b6a2cb79"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7d93aec347d09be9",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 29",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "c7637b2126ba2bdb",
+        "type": "modbus-read",
+        "z": "47581ab978ca77f3",
+        "name": "Energy_ALT2",
+        "topic": "Energy_ALT2",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "2699",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "8620c6e02d366030"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "999668f528716386",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 30",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f95de8d8c9dabf91",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 32",
+        "func": "let regs = msg.payload; \n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    current_A_ALT2: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 120,
+        "wires": [
+            [
+                "bcf5f8a14c9bf8c5",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "11035abb5d46027b",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 33",
+        "func": "\nlet regs = msg.payload;\n\nlet buf = Buffer.alloc(4);\n\n\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet frecuencia = buf.readFloatBE(0);\n\n\nif (frecuencia < 40 || frecuencia > 70) {\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    frecuencia = buf.readFloatBE(0);\n}\n\nmsg.payload = { frecuencia_Hz_ALT2: frecuencia };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "13cb5b229d5f0fbd",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "8620c6e02d366030",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 34",
+        "func": "\nlet regs = msg.payload;\n\nif (regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros para FLOAT32\");\n    return null;\n}\n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet energiaWh = buf.readFloatBE(0);\n\n\nif (energiaWh < 0 || energiaWh > 1e7) {\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    energiaWh = buf.readFloatBE(0);\n}\n\n\nmsg.payload = { energia_kWh: energiaWh };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 180,
+        "wires": [
+            [
+                "999668f528716386",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "4a6897b85b1792b5",
+        "type": "modbus-read",
+        "z": "47581ab978ca77f3",
+        "name": "PowerP_ALT2",
+        "topic": "PowerP_ALT2",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3059",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 130,
+        "y": 520,
+        "wires": [
+            [
+                "88d689361f1b3e6f",
+                "ae928a5184025ebd"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "bf1ee33d23d4642e",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 31",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "dbd75b36f4910e7b",
+        "type": "modbus-read",
+        "z": "47581ab978ca77f3",
+        "name": "PowerQ_ALT2",
+        "topic": "PowerQ_ALT2",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3067",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "860b33b033d493ff"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "860b33b033d493ff",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 35",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction decodeFloat(regs) {\n    let buf = Buffer.alloc(4);\n    let results = [];\n\n\n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n \n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n \n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = decodeFloat(regs);\n\n\nlet potencia = valores.find(v => v > -1000 && v < 10000);\n\nmsg.payload = {\n    potencia_kVAR_ALT2: potencia,\n\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 300,
+        "wires": [
+            [
+                "bfd4c07a414bef6a",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "bfd4c07a414bef6a",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 32",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "6a20ae75a05a9548",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 36",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction tryAll(regs) {\n    let results = [];\n\n    let buf = Buffer.alloc(4);\n\n\n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n\n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = tryAll(regs);\n\n\nlet potencia = valores.find(v => v > 0 && v < 10000);\n\nmsg.payload = {\n    kVA_ALT2: potencia,\n   \n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 380,
+        "wires": [
+            [
+                "7d93aec347d09be9",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "88d689361f1b3e6f",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 37",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction decodeFloat(regs) {\n    let buf = Buffer.alloc(4);\n    let results = [];\n\n \n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n \n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n  \n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = decodeFloat(regs);\n\n\nlet potencia = valores.find(v => v > -1000 && v < 10000);\n\nmsg.payload = {\n    potencia_kW_ALT2: potencia,\n    \n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 440,
+        "wires": [
+            [
+                "bf1ee33d23d4642e",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "ae928a5184025ebd",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 38",
+        "func": "msg.topic = \"P\";          \nmsg.payload = msg.payload[0];  \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 580,
+        "wires": [
+            [
+                "adc0392d61166a8f"
+            ]
+        ]
+    },
+    {
+        "id": "13a7a2e7b6a2cb79",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 39",
+        "func": "msg.topic = \"S\";\nmsg.payload = msg.payload[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 520,
+        "wires": [
+            [
+                "adc0392d61166a8f"
+            ]
+        ]
+    },
+    {
+        "id": "adc0392d61166a8f",
+        "type": "join",
+        "z": "47581ab978ca77f3",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "5",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 630,
+        "y": 540,
+        "wires": [
+            [
+                "547d99591012105d"
+            ]
+        ]
+    },
+    {
+        "id": "547d99591012105d",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 40",
+        "func": "let P = msg.payload.P;\nlet S = msg.payload.S;\n\n\nif (P === undefined || S === undefined) {\n    node.warn(\"Faltan P o S\");\n    return null;\n}\n\nlet pf = 0;\n\nif (S !== 0) {\n    pf = P / S;\n}\n\n\nif (pf > 1) pf = 1;\nif (pf < -1) pf = -1;\n\n\nmsg.payload = {\n    powerFactor_ALT2: pf,\n    activePower: P,\n    apparentPower: S\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 540,
+        "wires": [
+            [
+                "f7099f65d4a06be8",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "f7099f65d4a06be8",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 33",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "11f766923990887a",
+        "type": "modbus-read",
+        "z": "47581ab978ca77f3",
+        "name": "V_ALT2_C",
+        "topic": "V_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3023",
+        "quantity": "2",
+        "rate": "4000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 740,
+        "wires": [
+            [
+                "f3b5507200c715cc"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "97a3d6d6a556893b",
+        "type": "modbus-read",
+        "z": "47581ab978ca77f3",
+        "name": "V_ALT2_B",
+        "topic": "V_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3021",
+        "quantity": "2",
+        "rate": "4000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 660,
+        "wires": [
+            [
+                "fb6ac4bdbcdbd19c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "fb6ac4bdbcdbd19c",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 62",
+        "func": "\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\n\nmsg.payload = {\n    V_ALT2_B: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 680,
+        "wires": [
+            [
+                "5137f30d8c6847c0",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "5137f30d8c6847c0",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 51",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "f3b5507200c715cc",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 63",
+        "func": "\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\nmsg.payload = {\n    V_ALT2_C: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 740,
+        "wires": [
+            [
+                "4ede62c31e6b0b66",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "4ede62c31e6b0b66",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 52",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "847da8b18476c335",
+        "type": "modbus-read",
+        "z": "47581ab978ca77f3",
+        "name": "Current_ALT2_B",
+        "topic": "Current_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3001",
+        "quantity": "2",
+        "rate": "1000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 140,
+        "y": 820,
+        "wires": [
+            [
+                "7efdf12ce56551ce"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "761821c00faeb23a",
+        "type": "modbus-read",
+        "z": "47581ab978ca77f3",
+        "name": "Current_ALT2_C",
+        "topic": "Current_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3003",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 140,
+        "y": 880,
+        "wires": [
+            [
+                "6d7cb53ead343b9d"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7efdf12ce56551ce",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 64",
+        "func": "let regs = msg.payload; \n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    Current_ALT2_B: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 820,
+        "wires": [
+            [
+                "fc09870f8c39d694",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "6d7cb53ead343b9d",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 65",
+        "func": "let regs = msg.payload; \n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    Current_ALT2_C: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 880,
+        "wires": [
+            [
+                "8a2ec3528038d1f5",
+                "fc4c51c9e8db5467"
+            ]
+        ]
+    },
+    {
+        "id": "fc09870f8c39d694",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 53",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "8a2ec3528038d1f5",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug 54",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "fc4c51c9e8db5467",
+        "type": "join",
+        "z": "47581ab978ca77f3",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "2",
+        "count": "9",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 990,
+        "y": 140,
+        "wires": [
+            [
+                "026d3ec8b67f52ee"
+            ]
+        ]
+    },
+    {
+        "id": "026d3ec8b67f52ee",
+        "type": "function",
+        "z": "47581ab978ca77f3",
+        "name": "function 66",
+        "func": "\nlet data = {};\n\n\nfor (let key in msg.payload) {\n    if (typeof msg.payload[key] === \"object\" && msg.payload[key] !== null) {\n        Object.assign(data, msg.payload[key]);\n    } else {\n        data[key] = msg.payload[key];\n    }\n}\n\n\nmsg.measurement = \"datos_pickdata_ALT2\";\n\n\nmsg.payload = data;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1170,
+        "y": 120,
+        "wires": [
+            [
+                "bc3be50612bef0bd",
+                "c8cfce18bd11ec6e"
+            ]
+        ]
+    },
+    {
+        "id": "bc3be50612bef0bd",
+        "type": "influxdb out",
+        "z": "47581ab978ca77f3",
+        "influxdb": "73176a02fa65841f",
+        "name": "test",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "tfg",
+        "bucket": "tfg",
+        "x": 1390,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "c8cfce18bd11ec6e",
+        "type": "debug",
+        "z": "47581ab978ca77f3",
+        "name": "debug influx",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1370,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "447c7f0e0b6d7ccb",
+        "type": "modbus-client",
+        "name": "PM5550_ALT2 ",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.10.114",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": "1",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": "2000",
+        "parallelUnitIdsAllowed": true
+    },
+    {
+        "id": "73176a02fa65841f",
+        "type": "influxdb",
+        "hostname": "http://10.4.74.56:8086",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "test",
+        "usetls": false,
+        "tls": "d50d0c9f.31e858",
+        "influxdbVersion": "2.0",
+        "url": "http://10.4.74.52:8086/",
+        "timeout": "5",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "d50d0c9f.31e858",
+        "type": "tls-config",
+        "d": true,
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false
+    }
+]
+JSON CARGA
+[
+    {
+        "id": "c7027bc764b40e20",
+        "type": "tab",
+        "label": "CARGA",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a4aabbee7613d4b2",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 34",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "1a53ef661221d532",
+        "type": "modbus-read",
+        "z": "c7027bc764b40e20",
+        "name": "V_LOAD_A",
+        "topic": "V_LOAD",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3025",
+        "quantity": "2",
+        "rate": "1000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "d32a025334527ae1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "4d945808a6d4e347"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4d945808a6d4e347",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 41",
+        "func": "\n\n// Convertir a Float32 \nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\n// Redondear \nmsg.payload = {\n    V_LOAD_A: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 80,
+        "wires": [
+            [
+                "a4aabbee7613d4b2",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "b81442e765cfeef1",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 35",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "2921df9b5513cb6b",
+        "type": "modbus-read",
+        "z": "c7027bc764b40e20",
+        "name": "Current_LOAD_A",
+        "topic": "Current_LOAD",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3009",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "d32a025334527ae1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 140,
+        "wires": [
+            [
+                "1d8b939a84ea91ac"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e4c4db5bec1974f2",
+        "type": "modbus-read",
+        "z": "c7027bc764b40e20",
+        "d": true,
+        "name": "Freq_LOAD",
+        "topic": "Freq_LOAD",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3109",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "d32a025334527ae1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 110,
+        "y": 300,
+        "wires": [
+            [
+                "d92ac3a1d8c939ff"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f3f7815e901df85a",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 36",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "09566932bc52e3b2",
+        "type": "modbus-read",
+        "z": "c7027bc764b40e20",
+        "name": "PowerS_LOAD",
+        "topic": "PowerS_LOAD",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3075",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "d32a025334527ae1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 460,
+        "wires": [
+            [
+                "04b429cca3602b4b",
+                "a0f7e830b71fd078"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f030eb2c3e86948c",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 37",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "bb444406d5b53445",
+        "type": "modbus-read",
+        "z": "c7027bc764b40e20",
+        "name": "Energy_LOAD",
+        "topic": "Energy_LOAD",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "2699",
+        "quantity": "2",
+        "rate": "1000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "d32a025334527ae1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "a9d047f136426903"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2c3948ad8876997a",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 38",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "1d8b939a84ea91ac",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 42",
+        "func": "let regs = msg.payload; \n\n// Combinar registros en Float\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    Current_LOAD_A: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 140,
+        "wires": [
+            [
+                "b81442e765cfeef1",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "d92ac3a1d8c939ff",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 43",
+        "func": "\nlet regs = msg.payload;\n\nlet buf = Buffer.alloc(4);\n\n\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet frecuencia = buf.readFloatBE(0);\n\n\nif (frecuencia < 40 || frecuencia > 70) {\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    frecuencia = buf.readFloatBE(0);\n}\n\nmsg.payload = { frecuencia_Hz_LOAD: frecuencia };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 260,
+        "wires": [
+            [
+                "f3f7815e901df85a",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "a9d047f136426903",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 44",
+        "func": "\nlet regs = msg.payload;\n\nif (regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros para FLOAT32\");\n    return null;\n}\n\n// Convertir a FLOAT32\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet energiaWh = buf.readFloatBE(0);\n\n// Swap \nif (energiaWh < 0 || energiaWh > 1e7) {\n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    energiaWh = buf.readFloatBE(0);\n}\n\n// Mantener la unidad \nmsg.payload = { energia_kWh: energiaWh };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 200,
+        "wires": [
+            [
+                "2c3948ad8876997a",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "58bafa227d16c5ae",
+        "type": "modbus-read",
+        "z": "c7027bc764b40e20",
+        "name": "PowerP_LOAD",
+        "topic": "PowerP_LOAD",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3059",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "d32a025334527ae1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 540,
+        "wires": [
+            [
+                "04694979fac4372f",
+                "dbf4968b646c5c4f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7dcb69f87c7bba98",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 39",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "38b1ee63e354a1c8",
+        "type": "modbus-read",
+        "z": "c7027bc764b40e20",
+        "name": "PowerQ_LOAD",
+        "topic": "PowerQ_LOAD",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3067",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "d32a025334527ae1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 120,
+        "y": 380,
+        "wires": [
+            [
+                "bcd40109585b2dbb"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "bcd40109585b2dbb",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 45",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction decodeFloat(regs) {\n    let buf = Buffer.alloc(4);\n    let results = [];\n\n  \n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n  \n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n\n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = decodeFloat(regs);\n\n\nlet potencia = valores.find(v => v > -1000 && v < 10000);\n\nmsg.payload = {\n    potencia_kVAR_LOAD: potencia,\n\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 320,
+        "wires": [
+            [
+                "79f4a72035bff3c0",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "79f4a72035bff3c0",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 40",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "04b429cca3602b4b",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 46",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction tryAll(regs) {\n    let results = [];\n\n    let buf = Buffer.alloc(4);\n\n\n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n \n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n\n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = tryAll(regs);\n\n\nlet potencia = valores.find(v => v > 0 && v < 10000);\n\nmsg.payload = {\n    kVA_LOAD: potencia,\n   \n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 400,
+        "wires": [
+            [
+                "f030eb2c3e86948c",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "04694979fac4372f",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 47",
+        "func": "let regs = msg.payload;\n\nif (Array.isArray(regs[0])) regs = regs[0];\n\nif (!Array.isArray(regs) || regs.length !== 2) {\n    node.error(\"Se esperaban 2 registros\");\n    return null;\n}\n\nfunction decodeFloat(regs) {\n    let buf = Buffer.alloc(4);\n    let results = [];\n\n\n    buf.writeUInt16BE(regs[0], 0);\n    buf.writeUInt16BE(regs[1], 2);\n    results.push(buf.readFloatBE(0));\n\n \n    buf.writeUInt16BE(regs[1], 0);\n    buf.writeUInt16BE(regs[0], 2);\n    results.push(buf.readFloatBE(0));\n\n\n    buf.writeUInt16LE(regs[0], 0);\n    buf.writeUInt16LE(regs[1], 2);\n    results.push(buf.readFloatLE(0));\n\n\n    buf.writeUInt16LE(regs[1], 0);\n    buf.writeUInt16LE(regs[0], 2);\n    results.push(buf.readFloatLE(0));\n\n    return results;\n}\n\nlet valores = decodeFloat(regs);\n\n\nlet potencia = valores.find(v => v > -1000 && v < 10000);\n\nmsg.payload = {\n    potencia_kW_LOAD: potencia,\n    \n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 460,
+        "wires": [
+            [
+                "7dcb69f87c7bba98",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "dbf4968b646c5c4f",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 48",
+        "func": "msg.topic = \"P\";          \nmsg.payload = msg.payload[0];  \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 600,
+        "wires": [
+            [
+                "4ccc200d7e0da880"
+            ]
+        ]
+    },
+    {
+        "id": "a0f7e830b71fd078",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 49",
+        "func": "msg.topic = \"S\";\nmsg.payload = msg.payload[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 540,
+        "wires": [
+            [
+                "4ccc200d7e0da880"
+            ]
+        ]
+    },
+    {
+        "id": "4ccc200d7e0da880",
+        "type": "join",
+        "z": "c7027bc764b40e20",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "5",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 610,
+        "y": 560,
+        "wires": [
+            [
+                "3fce014ab851fa12"
+            ]
+        ]
+    },
+    {
+        "id": "3fce014ab851fa12",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 50",
+        "func": "let P = msg.payload.P;\nlet S = msg.payload.S;\n\n\nif (P === undefined || S === undefined) {\n    node.warn(\"Faltan P o S\");\n    return null;\n}\n\nlet pf = 0;\n\nif (S !== 0) {\n    pf = P / S;\n}\n\n\nif (pf > 1) pf = 1;\nif (pf < -1) pf = -1;\n\n\nmsg.payload = {\n    powerFactor_LOAD: pf,\n    activePower: P,\n    apparentPower: S\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 560,
+        "wires": [
+            [
+                "0e613f523bababd9",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "0e613f523bababd9",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 41",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "00f1640658704425",
+        "type": "join",
+        "z": "c7027bc764b40e20",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "2",
+        "count": "9",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1070,
+        "y": 180,
+        "wires": [
+            [
+                "69caa9de09812405"
+            ]
+        ]
+    },
+    {
+        "id": "69caa9de09812405",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 67",
+        "func": "\nlet data = {};\n\n\nfor (let key in msg.payload) {\n    if (typeof msg.payload[key] === \"object\" && msg.payload[key] !== null) {\n        Object.assign(data, msg.payload[key]);\n    } else {\n        data[key] = msg.payload[key];\n    }\n}\n\n\nmsg.measurement = \"datos_pickdata_LOAD\";\n\n\nmsg.payload = data;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 160,
+        "wires": [
+            [
+                "8699d8db40d97402",
+                "be2d5c7434f2caf8"
+            ]
+        ]
+    },
+    {
+        "id": "8699d8db40d97402",
+        "type": "influxdb out",
+        "z": "c7027bc764b40e20",
+        "influxdb": "73176a02fa65841f",
+        "name": "test",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "tfg",
+        "bucket": "tfg",
+        "x": 1430,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "be2d5c7434f2caf8",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug influx",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1410,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "e7f0bf5246e69c08",
+        "type": "modbus-read",
+        "z": "c7027bc764b40e20",
+        "name": "V_LOAD_C",
+        "topic": "V_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3023",
+        "quantity": "2",
+        "rate": "4000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 150,
+        "y": 760,
+        "wires": [
+            [
+                "c42182c1296741a8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "07a6f3d273caac31",
+        "type": "modbus-read",
+        "z": "c7027bc764b40e20",
+        "name": "V_LOAD_B",
+        "topic": "V_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3021",
+        "quantity": "2",
+        "rate": "4000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "d32a025334527ae1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 150,
+        "y": 680,
+        "wires": [
+            [
+                "d926d4260b8fcd8a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d926d4260b8fcd8a",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 68",
+        "func": "\n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\n\nmsg.payload = {\n    V_LOAD_B: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 700,
+        "wires": [
+            [
+                "5810dc65011d9d7a",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "5810dc65011d9d7a",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 55",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "c42182c1296741a8",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 69",
+        "func": "\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(msg.payload[0], 0);\nbuf.writeUInt16BE(msg.payload[1], 2);\n\nlet tension = buf.readFloatBE(0);\n\n\nmsg.payload = {\n    V_LOAD_C: Number(tension.toFixed(2)),\n    unidad: \"V\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 760,
+        "wires": [
+            [
+                "983c4057647dc4ad",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "983c4057647dc4ad",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 56",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "72c5442214662738",
+        "type": "modbus-read",
+        "z": "c7027bc764b40e20",
+        "name": "Current_LOAD_B",
+        "topic": "Current_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3001",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e84436931b5409c9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 160,
+        "y": 840,
+        "wires": [
+            [
+                "ba77b6d9e6f399c0"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "23232e021d3cba5a",
+        "type": "modbus-read",
+        "z": "c7027bc764b40e20",
+        "name": "Current_LOAD_C",
+        "topic": "Current_ALIMENTACION",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3003",
+        "quantity": "2",
+        "rate": "5000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "447c7f0e0b6d7ccb",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 160,
+        "y": 900,
+        "wires": [
+            [
+                "ccf2a619af7e7ae8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ba77b6d9e6f399c0",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 70",
+        "func": "let regs = msg.payload; \n\n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    Current_LOAD_B: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 840,
+        "wires": [
+            [
+                "af560364b738c08e",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "ccf2a619af7e7ae8",
+        "type": "function",
+        "z": "c7027bc764b40e20",
+        "name": "function 71",
+        "func": "let regs = msg.payload; \n\nlet buf = Buffer.alloc(4);\nbuf.writeUInt16BE(regs[0], 0);\nbuf.writeUInt16BE(regs[1], 2);\n\nlet corriente = buf.readFloatBE(0);\n\nmsg.payload = {\n    Current_LOAD_C: corriente\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 900,
+        "wires": [
+            [
+                "a497826d04a640ee",
+                "00f1640658704425"
+            ]
+        ]
+    },
+    {
+        "id": "af560364b738c08e",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 57",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "a497826d04a640ee",
+        "type": "debug",
+        "z": "c7027bc764b40e20",
+        "name": "debug 58",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "d32a025334527ae1",
+        "type": "modbus-client",
+        "name": "PM5500_LOAD",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.10.115",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": "1",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": "2000",
+        "parallelUnitIdsAllowed": true
+    },
+    {
+        "id": "73176a02fa65841f",
+        "type": "influxdb",
+        "hostname": "http://10.4.74.56:8086",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "test",
+        "usetls": false,
+        "tls": "d50d0c9f.31e858",
+        "influxdbVersion": "2.0",
+        "url": "http://10.4.74.52:8086/",
+        "timeout": "5",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "447c7f0e0b6d7ccb",
+        "type": "modbus-client",
+        "name": "PM5550_ALT2 ",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.10.114",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": "1",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": "2000",
+        "parallelUnitIdsAllowed": true
+    },
+    {
+        "id": "e84436931b5409c9",
+        "type": "modbus-client",
+        "name": "PM5500_ALT1",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.10.110",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true
+    },
+    {
+        "id": "d50d0c9f.31e858",
+        "type": "tls-config",
+        "d": true,
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false
+    }
+]
